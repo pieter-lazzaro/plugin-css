@@ -1,4 +1,5 @@
-var CleanCSS = require('clean-css');
+var postcss = require('postcss');
+var copyAssets = require('postcss-copy-assets');
 
 // it's bad to do this in general, as code is now heavily environment specific
 var fs = System._nodeRequire('fs');
@@ -40,36 +41,19 @@ module.exports = function bundle(loads, opts) {
 
   var rootURL = loader.rootURL || fromFileURL(loader.baseURL);
 
-  var cssOptimize = opts.minify && opts.cssOptimize !== false;
-  
   var outFile = loader.separateCSS ? opts.outFile.replace(/\.js$/, '.css') : rootURL;
-
-  var cleanCSS = new CleanCSS({
-    advanced: cssOptimize,
-    agressiveMerging: cssOptimize,
-    mediaMerging: cssOptimize,
-    restructuring: cssOptimize,
-    shorthandCompacting: cssOptimize,
-
-    target: outFile,
-    relativeTo: rootURL,
-    sourceMap: !!opts.sourceMaps,
-    sourceMapInlineSources: opts.sourceMapContents
-  }).minify(loads.map(function(load) {
-    return fromFileURL(load.address) 
-  }));
-
-  if (cleanCSS.errors.length)
-    throw new Error('CSS Plugin:\n' + cleanCSS.errors.join('\n'));
-
-  var cssOutput = cleanCSS.styles;
-
+  
+  var postCSS = postcss([copyAssets({base: rootURL})]);
+  
+  var cssOutput = postCSS.process(loads.reduce(function(content, load) {
+    content += fs.readFileSync(fromFileURL(load.address));
+     
+    return content;  
+  }, '')).css;
+  
   // write a separate CSS file if necessary
   if (loader.separateCSS) {
-    if (opts.sourceMaps) {
-      fs.writeFileSync(outFile + '.map', cleanCSS.sourceMap.toString());
-      cssOutput += '/*# sourceMappingURL=' + outFile.split(/[\\/]/).pop() + '.map*/';
-    }
+    
 
     fs.writeFileSync(outFile, cssOutput);
 
