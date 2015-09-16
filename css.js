@@ -78,11 +78,14 @@ else {
   exports.instantiate = function() {};
   exports.bundle = function(loads, opts) {
     var loader = this;
+    console.log(loader);
     if (loader.buildCSS === false)
       return '';
     return loader['import']('./css-builder', { name: module.id }).then(function(builder) {
       return builder.call(loader, loads, opts);
-    }, function() {
+    }, function(error) {
+      
+      console.log(error);
       throw new Error('Install Clean CSS via `jspm install npm:clean-css` for CSS build support. Set System.buildCSS = false to skip CSS builds.');
     });
   };

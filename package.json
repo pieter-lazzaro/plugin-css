@@ -1,4 +1,28 @@
 {
-  "main": "css",
-  "registry": "jspm"
+  "name": "plugin-css",
+  "version": "1.0.0",
+  "description": "css ===",
+  "main": "css.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "postcss": "^5.0.5",
+    "postcss-copy-assets": "^0.1.1",
+    "postcss-url": "^5.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://pieter-lazzaro@github.com/pieter-lazzaro/plugin-css.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pieter-lazzaro/plugin-css/issues"
+  },
+  "homepage": "https://github.com/pieter-lazzaro/plugin-css#readme"
 }

@@ -1,8 +1,8 @@
 var postcss = require('postcss');
-var copyAssets = require('postcss-copy-assets');
+var url = require('postcss-url');
 
 // it's bad to do this in general, as code is now heavily environment specific
-var fs = System._nodeRequire('fs');
+var fs = require('fs');
 
 function escape(source) {
   return source
@@ -43,13 +43,19 @@ module.exports = function bundle(loads, opts) {
 
   var outFile = loader.separateCSS ? opts.outFile.replace(/\.js$/, '.css') : rootURL;
   
-  var postCSS = postcss([copyAssets({base: rootURL})]);
+  var postCSS = postcss([url({url: "copy"})]);
   
-  var cssOutput = postCSS.process(loads.reduce(function(content, load) {
-    content += fs.readFileSync(fromFileURL(load.address));
+  var cssOutput = loads.reduce(function(content, load) {
+    var fromFile = fromFileURL(load.address);
+    var css = fs.readFileSync(fromFile);
+     
+     content += postcss.css(css, {
+       from: fromFile,
+       to: rootUrl
+     }).css;
      
     return content;  
-  }, '')).css;
+  }, '');
   
   // write a separate CSS file if necessary
   if (loader.separateCSS) {
