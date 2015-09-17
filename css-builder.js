@@ -1,5 +1,6 @@
 var postcss = require('postcss');
 var url = require('postcss-url');
+var cssnano = require('cssnano');
 
 // it's bad to do this in general, as code is now heavily environment specific
 var fs = System._nodeRequire('fs');
@@ -44,7 +45,7 @@ module.exports = function bundle(loads, opts) {
 
   var outFile = loader.separateCSS ? opts.outFile.replace(/\.js$/, '.css') : rootURL;
   
-  var postCSS = postcss([url({url: "copy"})]);
+  var postCSS = postcss([url({url: "copy"}), cssnano()]);
   
   var cssOutput = loads.reduce(function(content, load) {
     var fromFile = fromFileURL(load.address);
