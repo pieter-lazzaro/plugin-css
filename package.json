@@ -7,6 +7,7 @@
     "test": "test"
   },
   "dependencies": {
+    "cssnano": "^3.0.1",
     "postcss": "^5.0.5",
     "postcss-copy-assets": "^0.1.1",
     "postcss-url": "^5.0.0"

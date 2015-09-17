@@ -2,7 +2,8 @@ var postcss = require('postcss');
 var url = require('postcss-url');
 
 // it's bad to do this in general, as code is now heavily environment specific
-var fs = require('fs');
+var fs = System._nodeRequire('fs');
+var path = System._nodeRequire('path');
 
 function escape(source) {
   return source
@@ -51,7 +52,7 @@ module.exports = function bundle(loads, opts) {
      
      content += postcss.css(css, {
        from: fromFile,
-       to: rootUrl
+       to: outFile
      }).css;
      
     return content;  
@@ -61,7 +62,7 @@ module.exports = function bundle(loads, opts) {
   if (loader.separateCSS) {
     
 
-    fs.writeFileSync(outFile, cssOutput);
+    fs.appendFileSync(outFile, cssOutput);
 
     return stubDefines;
   }
