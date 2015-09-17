@@ -78,7 +78,6 @@ else {
   exports.instantiate = function() {};
   exports.bundle = function(loads, opts) {
     var loader = this;
-    console.log(loader);
     if (loader.buildCSS === false)
       return '';
     return loader['import']('./css-builder', { name: module.id }).then(function(builder) {
