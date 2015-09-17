@@ -50,7 +50,7 @@ module.exports = function bundle(loads, opts) {
     var fromFile = fromFileURL(load.address);
     var css = fs.readFileSync(fromFile);
      
-     content += postcss.css(css, {
+     content += postCSS.process(css, {
        from: fromFile,
        to: outFile
      }).css;
