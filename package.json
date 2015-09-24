@@ -4,15 +4,19 @@
   "description": "css ===",
   "main": "css.js",
   "directories": {
-    "test": "test"
+    "test": "test",
+    "packages": "jspm_packages"
   },
+  "registry": "jspm",
   "dependencies": {
     "cssnano": "^3.0.1",
     "postcss": "^5.0.5",
     "postcss-copy-assets": "^0.1.1",
     "postcss-url": "^5.0.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "jspm": "^0.16.2"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -25,5 +29,18 @@
   "bugs": {
     "url": "https://github.com/pieter-lazzaro/plugin-css/issues"
   },
-  "homepage": "https://github.com/pieter-lazzaro/plugin-css#readme"
+  "homepage": "https://github.com/pieter-lazzaro/plugin-css#readme",
+  "jspm": {
+    "directories": {
+      "test": "test"
+    },
+    "dependencies": {
+      "cssnano": "npm:cssnano@^3.0.1",
+      "postcss": "npm:postcss@^5.0.5",
+      "postcss-safe-parser": "npm:postcss-safe-parser@^1.0.1",
+      "postcss-url": "npm:postcss-url@^5.0.0",
+      "systemjs/plugin-json": "github:systemjs/plugin-json@^0.1.0"
+    },
+    "devDependencies": {}
+  }
 }
