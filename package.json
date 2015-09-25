@@ -15,7 +15,7 @@
     "postcss-url": "^5.0.0"
   },
   "devDependencies": {
-    "jspm": "^0.16.2"
+    "jspm": "^0.16.10"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -35,12 +35,20 @@
       "test": "test"
     },
     "dependencies": {
-      "cssnano": "npm:cssnano@^3.0.1",
+      "cssnano": "github:pieter-lazzaro/cssnano@master",
       "postcss": "npm:postcss@^5.0.5",
       "postcss-safe-parser": "npm:postcss-safe-parser@^1.0.1",
       "postcss-url": "npm:postcss-url@^5.0.0",
       "systemjs/plugin-json": "github:systemjs/plugin-json@^0.1.0"
     },
-    "devDependencies": {}
+    "devDependencies": {},
+    "overrides": {
+      "github:pieter-lazzaro/svgo@master": {
+        "registry": "npm"
+      },
+      "github:pieter-lazzaro/postcss-svgo@master": {
+        "main": "index"
+      }
+    }
   }
 }
